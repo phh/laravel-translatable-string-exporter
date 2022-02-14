@@ -86,7 +86,7 @@ jobs:
         
       - name: Remove Larastan dependencies
         run: |
-          composer remove "nunomaduro/larastan" --dev --no-interaction
+          composer remove "nunomaduro/larastan" --dev --no-interaction --no-update
         if: matrix.php < 7.4
 
       - name: Update CI dependencies
