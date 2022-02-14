@@ -12,9 +12,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
-        laravel: [5.8.*, 6.4.*, 7.*, 8.*, 9.*]
+        php: [5.6, 7.4, 8.0, 8.1]
+        laravel: [5.4.*, 5.8.*, 6.4.*, 7.*, 8.*, 9.*]
         include:
+          - laravel: 5.6.*
+            testbench: ^3.1
           - laravel: 5.8.*
             testbench: ^3.4
             larastan: ^0.4
@@ -57,9 +59,18 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
-      - name: Install dependencies
+      - name: Install test dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nunomaduro/larastan:${{ matrix.larastan }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+
+      - name: Install Larastan dependencies
+        run: |
+          composer require "nunomaduro/larastan:${{ matrix.larastan }}" --no-interaction --no-update
+        if: matrix.php >= 7
+          
+
+      - name: Update CI dependencies
+        run: |
           composer update --prefer-dist --no-interaction
 
       - name: Execute tests
