@@ -33,6 +33,16 @@ jobs:
             testbench: ^7.0
             larastan: ^2.0
         exclude:
+          - php: 5.5
+            laravel: 5.8.*
+          - php: 5.5
+            laravel: 6.4.*
+          - php: 5.5
+            laravel: 7.*
+          - php: 5.5
+            laravel: 8.*
+          - php: 5.5
+            laravel: 9.*
           - php: 7.4
             laravel: 9.*
           - php: 7.4
