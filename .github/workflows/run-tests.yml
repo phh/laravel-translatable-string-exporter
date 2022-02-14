@@ -84,9 +84,9 @@ jobs:
           composer require "nunomaduro/larastan:${{ matrix.larastan }}" --no-interaction --no-update
         if: matrix.php >= 7.4
         
-      - name: Install Larastan dependencies
+      - name: Remove Larastan dependencies
         run: |
-          composer remove "nunomaduro/larastan" --no-interaction --no-update
+          composer remove "nunomaduro/larastan" --no-interaction
         if: matrix.php < 7.4
 
       - name: Update CI dependencies
